@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>stringextension</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>extension String {
+    var md5:String {
+        get{
+            let messageData = self.data(using:.utf8)!
+            var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
+            
+            _ = digestData.withUnsafeMutableBytes {digestBytes in
+                messageData.withUnsafeBytes {messageBytes in
+                    CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
+                }
+            }
+            
+            return digestData.map { String(format: "%02hhx", $0) }.joined()
+        }
+    }
+    
+    public var trimmed: String {
+        return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+    
+    /// Returns true if string is blank, i.e. consists of whitespace characters only.
+    public var isBlank: Bool {
+        return trimmed.isEmpty
+    }
+    
+    /// Check whether there is at least one match in the receiver string for the given regular expression.
+    ///
+    /// - Parameters:
+    ///   - regex: Regular expression string to match against.
+    ///   - isCaseInsensitive: A Boolean indicating if matching should be case-insensitive.
+    /// - Returns: True if receiver matches regular expression.
+    public func matchesRegex(_ regex: String, isCaseInsensitive: Bool = false) -&gt; Bool {
+        return range(of: regex, options: String.makeRegexOptions(isCaseInsensitive: isCaseInsensitive)) != nil
+    }
+    
+    /// Helper factory method to create regular expression matching options.
+    ///
+    /// - Parameter isCaseInsensitive: Whether options should be case-insensitive or not.
+    /// - Returns: Options to be used for regular expression matching.
+    private static func makeRegexOptions(isCaseInsensitive: Bool) -&gt; NSString.CompareOptions {
+        return isCaseInsensitive ? [.regularExpression, .caseInsensitive] : .regularExpression
+    }
+    
+    /// Returns true if the string contains only numbers.
+    public var isNumeric: Bool {
+        return !(isEmpty || matchesRegex("[\\D]"))
+    }
+}
+
+public protocol OptionalString {}
+extension String: OptionalString {}
+
+public extension Optional where Wrapped: OptionalString {
+    
+    /// Check if the string is either `nil` or empty.
+    public var isNilOrEmpty: Bool {
+        return stringified.isEmpty
+    }
+    
+    /// Check if the string is either `nil` or blank.
+    public var isNilOrBlank: Bool {
+        return stringified.isBlank
+    }
+    
+    /// If the string is `nil` returns an empty one, otherwise `self`.
+    public var stringified: String {
+        return ifNil("")
+    }
+    
+    /// Map string to a new value if receiver is `nil`.
+    public func ifNil(_ closure: @autoclosure () -&gt; String) -&gt; String {
+        return (self as? String) ?? closure()
+    }
+    
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>95F58989-1BEA-4F5A-A5DF-395A3936B423</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>String Extension</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
