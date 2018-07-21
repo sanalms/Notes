@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>userdefaultsprotocol</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>protocol UserDefaultsProtocol {
+    /// Sets the value of the specified default key.
+    func set(_ value: Any?, forKey defaultName: String)
+    
+    /// Sets the value of the specified default key to the specified Boolean value.
+    func set(_ value: Bool, forKey defaultName: String)
+    
+    /// Returns the array associated with the specified key.
+    func array(forKey defaultName: String) -&gt; [Any]?
+    
+    /// Returns the Boolean value associated with the specified key.
+    func bool(forKey defaultName: String) -&gt; Bool
+}
+
+extension UserDefaults: UserDefaultsProtocol {}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>9F6994A3-DA6A-488F-8560-82AA06A107D6</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UserDefaults</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>
